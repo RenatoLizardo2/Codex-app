@@ -182,7 +182,7 @@ Never commit `.env` files or secrets.
 ## Agent Workflow
 
 Three agents work on each issue in sequence:
-1. **Planner** (`.claude/agents/planner.md`) — Creates `docs/features/feat-[name].md` BEFORE any coding
+1. **Planner** (`.claude/agents/planner.md`) — Creates `docs/plans/plan-[name].md` BEFORE any coding
 2. **Coder** (`.claude/agents/coder.md`) — Implements the plan, writes tests alongside code
 3. **Reviewer** (`.claude/agents/reviewer.md`) — Reviews against standards, creates `docs/reviews/review-[name].md`
 

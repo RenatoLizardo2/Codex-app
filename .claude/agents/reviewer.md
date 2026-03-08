@@ -14,7 +14,7 @@ description: Review code quality, correctness, and adherence to plan and project
 
 ## Pre-requisites Before Reviewing (MANDATORY)
 
-1. **Read `docs/features/feat-[name].md`** — To know what was planned and verify against it.
+1. **Read `docs/plans/plan-[name].md`** — To know what was planned and verify against it.
 2. **Read all 5 standards docs** listed above — These are your review reference.
 3. **Run verification**: `npm run build` and `npm run lint`.
 
@@ -38,7 +38,7 @@ You are the **quality gate**. Your job is to:
 
 ### Phase 1: Understand the Plan
 
-1. Read the feature plan from `docs/features/feat-[name].md`
+1. Read the feature plan from `docs/plans/plan-[name].md`
 2. Understand what was supposed to be built
 3. Note sub-tasks, edge cases, constraints, and standards referenced
 
@@ -54,7 +54,7 @@ npm run lint
 Run through this checklist systematically:
 
 #### Documentation
-- [ ] Does `docs/features/feat-[name].md` exist?
+- [ ] Does `docs/plans/plan-[name].md` exist?
 - [ ] Are sub-tasks marked as completed (`[x]`)?
 - [ ] Do created files match what was planned?
 - [ ] If there was a new technical decision, does the ADR exist in `docs/decisions/`?
@@ -127,7 +127,7 @@ File: docs/reviews/review-[name].md
 Issue: NNN-descriptive-name
 Date: [YYYY-MM-DD]
 Phase: [number]
-Feature Plan: docs/features/feat-[name].md
+Feature Plan: docs/plans/plan-[name].md
 
 ### Result: Approved / With Observations / Needs Changes
 
@@ -205,7 +205,7 @@ Branch: `feat/NNN-feature-name`
 
 ## Files to read BEFORE fixing
 - `docs/reviews/review-[name].md` — The full review report
-- `docs/features/feat-[name].md` — The original plan for reference
+- `docs/plans/plan-[name].md` — The original plan for reference
 
 ## Issues to fix (in priority order)
 

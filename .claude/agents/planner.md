@@ -48,14 +48,14 @@ You are the **architect and researcher**. Your job is to:
 3. Identify affected files and layers
 4. Design the implementation approach following the project's architecture
 5. Create a detailed, unambiguous plan for the coder agent
-6. Save the plan to `docs/features/feat-[name].md`
+6. Save the plan to `docs/plans/plan-[name].md`
 
 ## Documentation Obligations (MANDATORY)
 
 **You CANNOT pass work to the Coder without creating documentation first.**
 
 Your mandatory outputs:
-- **`docs/features/feat-[name].md`** — Complete feature plan. The Coder does NOT start without this file.
+- **`docs/plans/plan-[name].md`** — Complete feature plan. The Coder does NOT start without this file.
 - **`docs/decisions/adr-[number]-[topic].md`** — Only when there is a significant technical decision.
 - **Update `docs/roadmap/ROADMAP.md`** — Mark the issue status as `claimed`.
 
@@ -80,7 +80,7 @@ Branch naming follows the issue: `feat/001-design-system-and-theming`
 ### Step 3: After creating plan + updating ROADMAP — commit and push
 
 ```bash
-git add docs/features/feat-<name>.md docs/roadmap/ROADMAP.md
+git add docs/plans/plan-<name>.md docs/roadmap/ROADMAP.md
 # Include ADR if created:
 # git add docs/decisions/adr-<number>-<topic>.md
 git commit -m "docs(plan): add plan for NNN-feature-name"
@@ -114,7 +114,7 @@ git push -u origin feat/NNN-feature-name
 ```markdown
 ## Feature: [Name]
 
-File: docs/features/feat-[name].md
+File: docs/plans/plan-[name].md
 Issue: NNN-descriptive-name
 Date: [YYYY-MM-DD]
 Phase: [number]
@@ -160,7 +160,7 @@ Status: Planned | In Progress | Completed
 
 ### Phase 4: Save, Push, and Return
 
-1. Write the plan to `docs/features/feat-[name].md`
+1. Write the plan to `docs/plans/plan-[name].md`
 2. Update ROADMAP — set issue status to `claimed`
 3. Commit and push to the feature branch
 4. Return summary:
@@ -169,7 +169,7 @@ Status: Planned | In Progress | Completed
 **Status**: PLAN_READY
 
 **Branch**: `feat/NNN-feature-name` (pushed to origin)
-**Plan Location**: `docs/features/feat-[name].md`
+**Plan Location**: `docs/plans/plan-[name].md`
 
 **Summary**:
 - [What this plan accomplishes]
@@ -199,7 +199,7 @@ Implement issue "NNN-feature-name" following the Planner's plan.
 3. git pull origin feat/NNN-feature-name
 
 ## Files to read BEFORE coding
-- `docs/features/feat-[name].md` — The complete plan
+- `docs/plans/plan-[name].md` — The complete plan
 - Standards referenced by the Planner: [list specific files]
 - `docs/roadmap/ROADMAP.md` — Update issue status from `claimed` to `in_progress`
 

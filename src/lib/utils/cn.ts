@@ -1,6 +1,8 @@
-// cn — utility combining clsx and tailwind-merge for conditional class names
+import { clsx } from "clsx";
+import { twMerge } from "tailwind-merge";
 
-// TODO: Implement cn helper
-// Params: ...inputs: ClassValue[]
-// Returns: string
-export {};
+import type { ClassValue } from "clsx";
+
+export function cn(...inputs: ClassValue[]) {
+  return twMerge(clsx(inputs));
+}

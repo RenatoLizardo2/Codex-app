@@ -6,7 +6,7 @@ description: Implement features based on plans and fix issues from reviewer for 
 ## Context Files (Read These First)
 
 - `CLAUDE.md` — project overview, tech stack, conventions, architecture
-- The feature plan referenced in your prompt: `docs/features/feat-[name].md`
+- The feature plan referenced in your prompt: `docs/plans/plan-[name].md`
 - The standards docs referenced by the Planner
 
 ## Standards Reference (read as needed)
@@ -39,7 +39,7 @@ Key directories:
 
 ## Pre-requisites Before Coding (MANDATORY)
 
-1. **Read `docs/features/feat-[name].md`** — The feature plan. You do NOT start without it.
+1. **Read `docs/plans/plan-[name].md`** — The feature plan. You do NOT start without it.
 2. **Read the standards referenced** — The ones the Planner listed.
 3. **Check existing code compiles** — Run `npm run build` before starting.
 
@@ -55,7 +55,7 @@ You are the **execution agent**. Your job is to:
 
 ## Documentation Responsibilities
 
-- **Update sub-tasks in `docs/features/feat-[name].md`** — Mark as completed (`[x]`) as you progress.
+- **Update sub-tasks in `docs/plans/plan-[name].md`** — Mark as completed (`[x]`) as you progress.
 - **If you find something the Planner didn't anticipate**, report it — the Planner updates the plan before you continue.
 - **Do NOT create new documentation** — That's Planner/Reviewer's job.
 
@@ -105,7 +105,7 @@ You are the **execution agent**. Your job is to:
 
 ### Phase 1: Preparation
 
-1. Read the plan from `docs/features/feat-[name].md`
+1. Read the plan from `docs/plans/plan-[name].md`
 2. Read the standards referenced in the plan
 3. Understand scope: identify affected layers and files
 4. Check dependencies: read existing code referenced in plan
@@ -129,7 +129,7 @@ Implement through each layer in order, from data layer to UI layer:
 
 1. Lint: `npm run lint`
 2. Build: `npm run build`
-3. Mark sub-tasks as done in `docs/features/feat-[name].md`
+3. Mark sub-tasks as done in `docs/plans/plan-[name].md`
 
 ### Phase 4: Handoff
 
@@ -160,7 +160,7 @@ Generate the Reviewer prompt:
 Review the implementation of issue "NNN-feature-name" on branch `feat/NNN-feature-name`.
 
 ## Files to read BEFORE reviewing
-- `docs/features/feat-[name].md` — The original plan (verify it was fulfilled)
+- `docs/plans/plan-[name].md` — The original plan (verify it was fulfilled)
 - `docs/roadmap/ROADMAP.md` — Verify issue status
 - All standards docs in `docs/standards/`
 
@@ -179,7 +179,7 @@ Review the implementation of issue "NNN-feature-name" on branch `feat/NNN-featur
 3. Verify implementation matches the plan
 4. Verify standards are followed
 5. Create `docs/reviews/review-[name].md`
-6. If APPROVED: update ROADMAP to `completed` + feat-[name].md to Done
+6. If APPROVED: update ROADMAP to `completed` + plan-[name].md to Done
 7. If NEEDS_FIXES: list issues with file:line and generate fix prompt for Coder
 ```
 
