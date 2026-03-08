@@ -43,7 +43,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Backend
 
-- [ ] `002-auth-and-user-sync` — **Status:** `in_review`
+- [x] `002-auth-and-user-sync` — **Status:** `completed`
   Clerk integration: middleware for protected routes, sign-in/sign-up pages under `(auth)/` route group, Clerk webhook (`/api/webhooks/clerk`) to sync users to database. Zod validation on webhook payload.
 
 - [ ] `003-database-schema-and-clients` — **Status:** `pending`
@@ -51,7 +51,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Frontend
 
-- [ ] `001-design-system-and-theming` — **Status:** `in_review`
+- [x] `001-design-system-and-theming` — **Status:** `completed`
   Tailwind CSS v4 configuration with custom design tokens (all color variables for light + dark mode). Font loading via `next/font/google` (Playfair Display, Lora, Inter, JetBrains Mono). Custom shadows, borders, and spacing tokens in `globals.css`. shadcn/ui initialization with library theme mapped to semantic variables. Dark mode CSS variables (Library at Night palette). Utility `cn()` helper.
 
 - [ ] `004-app-shell-and-navigation` — **Status:** `pending`
@@ -132,11 +132,11 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 # Requirements traceability checklist
 
-- [ ] User authentication with Clerk (Phase 0: `002`)
-- [ ] User data sync via webhook (Phase 0: `002`)
+- [x] User authentication with Clerk (Phase 0: `002`)
+- [x] User data sync via webhook (Phase 0: `002`)
 - [ ] Database schema with pgvector (Phase 0: `003`)
-- [ ] Design system with library theme (Phase 0: `001`)
-- [ ] Dark mode support (Phase 0: `001`)
+- [x] Design system with library theme (Phase 0: `001`)
+- [x] Dark mode support (Phase 0: `001`)
 - [ ] App shell with sidebar navigation (Phase 0: `004`)
 - [ ] Basic Motion primitives — FadeIn, SlideIn (Phase 0: `004`)
 - [ ] Document upload to Vercel Blob (Phase 1: `005`)
