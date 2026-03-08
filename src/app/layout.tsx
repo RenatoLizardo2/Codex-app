@@ -1,4 +1,5 @@
 import { Playfair_Display, Lora, Inter, JetBrains_Mono } from "next/font/google";
+import { ClerkProvider } from "@clerk/nextjs";
 
 import { siteConfig } from "@/src/config/site";
 import "./globals.css";
@@ -53,7 +54,9 @@ export default function RootLayout({
       suppressHydrationWarning
     >
       <body className="min-h-screen antialiased">
-        {children}
+        <ClerkProvider>
+          {children}
+        </ClerkProvider>
       </body>
     </html>
   );
