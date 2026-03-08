@@ -1,0 +1,163 @@
+@import "tailwindcss";
+
+/* ============================================
+   The Codex — Design Tokens
+   ============================================ */
+
+/* --- Light Mode: "The Library" --- */
+:root {
+  /* Palette */
+  --wood-dark: 10 31% 19%;
+  --wood-warm: 16 20% 29%;
+  --parchment: 46 100% 94%;
+  --gold: 33 54% 51%;
+  --cream: 54 100% 95%;
+  --leather: 16 24% 47%;
+  --ink-green: 122 46% 33%;
+  --ink-red: 0 66% 47%;
+
+  /* Semantic (shadcn) */
+  --background: var(--parchment);
+  --foreground: var(--wood-dark);
+  --card: var(--cream);
+  --card-foreground: var(--wood-warm);
+  --popover: var(--cream);
+  --popover-foreground: var(--wood-dark);
+  --primary: var(--gold);
+  --primary-foreground: var(--cream);
+  --secondary: var(--leather);
+  --secondary-foreground: var(--cream);
+  --muted: var(--cream);
+  --muted-foreground: var(--leather);
+  --accent: 33 54% 51% / 0.2;
+  --accent-foreground: var(--wood-dark);
+  --destructive: var(--ink-red);
+  --destructive-foreground: var(--cream);
+  --border: 16 24% 47% / 0.3;
+  --input: 16 24% 47% / 0.3;
+  --ring: var(--gold);
+
+  /* Shadows (warm brown) */
+  --shadow-sm: 0 1px 2px rgba(62, 39, 35, 0.08);
+  --shadow-md: 0 4px 6px rgba(62, 39, 35, 0.12);
+  --shadow-lg: 0 10px 15px rgba(62, 39, 35, 0.15);
+  --shadow-card: 0 4px 6px rgba(62, 39, 35, 0.12);
+  --shadow-elevated: 0 10px 15px rgba(62, 39, 35, 0.15);
+  --shadow-book: 4px 4px 12px rgba(62, 39, 35, 0.2), inset 0 0 0 1px rgba(141, 110, 99, 0.1);
+
+  /* Border radius */
+  --radius-book: 4px;
+  --radius-card: 8px;
+  --radius-button: 6px;
+  --radius-full: 9999px;
+  --radius: 8px;
+
+  /* Durations */
+  --duration-fast: 150ms;
+  --duration-normal: 300ms;
+  --duration-slow: 500ms;
+}
+
+/* --- Dark Mode: "Library at Night" --- */
+.dark {
+  --night-bg: 240 26% 14%;
+  --night-surface: 218 43% 17%;
+  --night-border: 215 72% 22%;
+  --night-gold: 40 72% 58%;
+  --night-text: 30 50% 88%;
+  --night-muted: 25 38% 64%;
+
+  --background: var(--night-bg);
+  --foreground: var(--night-text);
+  --card: var(--night-surface);
+  --card-foreground: var(--night-text);
+  --popover: var(--night-surface);
+  --popover-foreground: var(--night-text);
+  --primary: var(--night-gold);
+  --primary-foreground: var(--night-bg);
+  --secondary: var(--night-surface);
+  --secondary-foreground: var(--night-text);
+  --muted: var(--night-surface);
+  --muted-foreground: var(--night-muted);
+  --accent: 40 72% 58% / 0.2;
+  --accent-foreground: var(--night-text);
+  --destructive: var(--ink-red);
+  --destructive-foreground: var(--night-text);
+  --border: 30 50% 88% / 0.15;
+  --input: 30 50% 88% / 0.15;
+  --ring: var(--night-gold);
+
+  --shadow-sm: 0 1px 2px rgba(0, 0, 0, 0.2);
+  --shadow-md: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-lg: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-card: 0 4px 6px rgba(0, 0, 0, 0.3);
+  --shadow-elevated: 0 10px 15px rgba(0, 0, 0, 0.4);
+  --shadow-book: 4px 4px 12px rgba(0, 0, 0, 0.4), inset 0 0 0 1px rgba(226, 176, 73, 0.1);
+}
+
+/* --- Tailwind v4 @theme --- */
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-popover: hsl(var(--popover));
+  --color-popover-foreground: hsl(var(--popover-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --color-destructive-foreground: hsl(var(--destructive-foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+
+  /* Palette colors for direct use */
+  --color-wood-dark: hsl(10 31% 19%);
+  --color-wood-warm: hsl(16 20% 29%);
+  --color-parchment: hsl(46 100% 94%);
+  --color-gold: hsl(33 54% 51%);
+  --color-cream: hsl(54 100% 95%);
+  --color-leather: hsl(16 24% 47%);
+  --color-ink-green: hsl(122 46% 33%);
+  --color-ink-red: hsl(0 66% 47%);
+  --color-night-bg: hsl(240 26% 14%);
+  --color-night-surface: hsl(218 43% 17%);
+  --color-night-border: hsl(215 72% 22%);
+  --color-night-gold: hsl(40 72% 58%);
+  --color-night-text: hsl(30 50% 88%);
+  --color-night-muted: hsl(25 38% 64%);
+
+  /* Typography */
+  --font-heading: var(--font-playfair);
+  --font-body: var(--font-lora);
+  --font-ui: var(--font-inter);
+  --font-mono: var(--font-jetbrains);
+
+  /* Border radius */
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) + 4px);
+}
+
+/* --- Base styles --- */
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: var(--font-body), Georgia, serif;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-heading), "Playfair Display", Georgia, serif;
+  }
+}
