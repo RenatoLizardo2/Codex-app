@@ -43,7 +43,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Backend
 
-- [ ] `002-auth-and-user-sync` — **Status:** `in_progress`
+- [ ] `002-auth-and-user-sync` — **Status:** `in_review`
   Clerk integration: middleware for protected routes, sign-in/sign-up pages under `(auth)/` route group, Clerk webhook (`/api/webhooks/clerk`) to sync users to database. Zod validation on webhook payload.
 
 - [ ] `003-database-schema-and-clients` — **Status:** `pending`
@@ -51,7 +51,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Frontend
 
-- [ ] `001-design-system-and-theming` — **Status:** `in_progress`
+- [ ] `001-design-system-and-theming` — **Status:** `in_review`
   Tailwind CSS v4 configuration with custom design tokens (all color variables for light + dark mode). Font loading via `next/font/google` (Playfair Display, Lora, Inter, JetBrains Mono). Custom shadows, borders, and spacing tokens in `globals.css`. shadcn/ui initialization with library theme mapped to semantic variables. Dark mode CSS variables (Library at Night palette). Utility `cn()` helper.
 
 - [ ] `004-app-shell-and-navigation` — **Status:** `pending`
@@ -59,7 +59,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 **Shared contracts:**
 
-- [ ] Zod validation schemas: `src/lib/validations/document.ts`, `chat.ts`, `upload.ts`
+- [x] Zod validation schemas: `src/lib/validations/document.ts`, `chat.ts`, `upload.ts`
 - [ ] TypeScript types: `src/types/database.ts`, `api.ts`, `chat.ts`, `rag.ts`
 - [ ] Site config: `src/config/site.ts`, `navigation.ts`, `rag.ts`
 
