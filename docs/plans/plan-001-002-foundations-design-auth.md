@@ -4,7 +4,7 @@ File: docs/plans/plan-001-002-foundations-design-auth.md
 Issues: 001-design-system-and-theming, 002-auth-and-user-sync
 Date: 2026-03-08
 Phase: 0
-Status: Planned
+Status: Implemented
 
 ### Objective
 
@@ -16,30 +16,30 @@ Establish the visual foundation (design tokens, fonts, shadcn/ui, dark mode) and
 
 #### Issue 001 — Design System & Theming
 
-- [ ] **T1: Install shared dependencies** — Criteria: `clsx`, `tailwind-merge`, `zod` added to package.json and lockfile updated
-- [ ] **T2: Consolidate root layout to `src/app/`** — Criteria: root `app/` layout/page replaced by redirect or removed; `src/app/layout.tsx` is the single root layout with `next/font/google` loading Playfair Display (700), Lora (400, 700), Inter (400, 500, 600), JetBrains Mono (400). CSS variables set on `<html>`. Metadata includes site name and description from `siteConfig`.
-- [ ] **T3: Create `src/app/globals.css` with design tokens** — Criteria: All color tokens from UI_STANDARDS (light mode "The Library" + dark mode "Library at Night") defined as CSS custom properties on `:root` and `.dark`. Semantic shadcn mappings (`--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--card`, `--popover`, `--border`, `--input`, `--ring`) all mapped to library palette. Shadow tokens (`--shadow-card`, `--shadow-elevated`), border-radius tokens. Tailwind v4 `@theme` block exposing all tokens.
-- [ ] **T4: Implement `src/lib/utils/cn.ts`** — Criteria: Named export `cn()` using `clsx` + `twMerge`. No default export.
-- [ ] **T5: Initialize shadcn/ui** — Criteria: `components.json` created at project root with: style "default", tailwindCSS config pointing to globals.css, aliases matching `@/*` path alias, RSC enabled. At least one shadcn component installed (`button`) to verify pipeline works.
-- [ ] **T6: Delete default Next.js root `app/` directory** — Criteria: `app/layout.tsx`, `app/page.tsx`, `app/globals.css` and any default favicon/fonts removed. Only `src/app/` remains as the app root.
+- [x] **T1: Install shared dependencies** — Criteria: `clsx`, `tailwind-merge`, `zod` added to package.json and lockfile updated
+- [x] **T2: Consolidate root layout to `src/app/`** — Criteria: root `app/` layout/page replaced by redirect or removed; `src/app/layout.tsx` is the single root layout with `next/font/google` loading Playfair Display (700), Lora (400, 700), Inter (400, 500, 600), JetBrains Mono (400). CSS variables set on `<html>`. Metadata includes site name and description from `siteConfig`.
+- [x] **T3: Create `src/app/globals.css` with design tokens** — Criteria: All color tokens from UI_STANDARDS (light mode "The Library" + dark mode "Library at Night") defined as CSS custom properties on `:root` and `.dark`. Semantic shadcn mappings (`--background`, `--foreground`, `--primary`, `--secondary`, `--muted`, `--accent`, `--destructive`, `--card`, `--popover`, `--border`, `--input`, `--ring`) all mapped to library palette. Shadow tokens (`--shadow-card`, `--shadow-elevated`), border-radius tokens. Tailwind v4 `@theme` block exposing all tokens.
+- [x] **T4: Implement `src/lib/utils/cn.ts`** — Criteria: Named export `cn()` using `clsx` + `twMerge`. No default export.
+- [x] **T5: Initialize shadcn/ui** — Criteria: `components.json` created at project root with: style "default", tailwindCSS config pointing to globals.css, aliases matching `@/*` path alias, RSC enabled. At least one shadcn component installed (`button`) to verify pipeline works.
+- [x] **T6: Delete default Next.js root `app/` directory** — Criteria: `app/layout.tsx`, `app/page.tsx`, `app/globals.css` and any default favicon/fonts removed. Only `src/app/` remains as the app root.
 
 #### Issue 002 — Auth & User Sync
 
-- [ ] **T7: Install auth dependencies** — Criteria: `@clerk/nextjs`, `svix` added to package.json
-- [ ] **T8: Create Clerk middleware** — Criteria: `src/middleware.ts` exports clerkMiddleware. Public routes: `/`, `/sign-in(.*)`, `/sign-up(.*)`, `/api/webhooks/(.*)`. All other routes protected. Matcher config excludes static files and `_next`.
-- [ ] **T9: Wrap app with ClerkProvider** — Criteria: `src/app/layout.tsx` wraps children with `<ClerkProvider>`. Import from `@clerk/nextjs`.
-- [ ] **T10: Create auth layout** — Criteria: `src/app/(auth)/layout.tsx` — centered flex layout, parchment background (`bg-[hsl(var(--background))]`), renders children centered vertically and horizontally.
-- [ ] **T11: Create sign-in page** — Criteria: `src/app/(auth)/sign-in/[[...sign-in]]/page.tsx` renders `<SignIn />` from `@clerk/nextjs`. Routing set to hash-based or path-based as appropriate. Page has proper metadata.
-- [ ] **T12: Create sign-up page** — Criteria: `src/app/(auth)/sign-up/[[...sign-up]]/page.tsx` renders `<SignUp />` from `@clerk/nextjs`. Same pattern as sign-in.
-- [ ] **T13: Implement Clerk webhook route** — Criteria: `src/app/api/webhooks/clerk/route.ts` — POST handler that: (1) reads `CLERK_WEBHOOK_SECRET` from env, (2) verifies Svix signature from headers (`svix-id`, `svix-timestamp`, `svix-signature`), (3) parses body with Zod schema, (4) handles `user.created`, `user.updated`, `user.deleted` events, (5) returns 200 on success, 400 on invalid payload, 401 on bad signature. For now, handler logs events (Prisma integration deferred to issue 003).
-- [ ] **T14: Add `CLERK_WEBHOOK_SECRET` to `.env.example`** — Criteria: Variable added with descriptive comment
+- [x] **T7: Install auth dependencies** — Criteria: `@clerk/nextjs`, `svix` added to package.json
+- [x] **T8: Create Clerk middleware** — Criteria: `src/middleware.ts` exports clerkMiddleware. Public routes: `/`, `/sign-in(.*)`, `/sign-up(.*)`, `/api/webhooks/(.*)`. All other routes protected. Matcher config excludes static files and `_next`.
+- [x] **T9: Wrap app with ClerkProvider** — Criteria: `src/app/layout.tsx` wraps children with `<ClerkProvider>`. Import from `@clerk/nextjs`.
+- [x] **T10: Create auth layout** — Criteria: `src/app/(auth)/layout.tsx` — centered flex layout, parchment background (`bg-[hsl(var(--background))]`), renders children centered vertically and horizontally.
+- [x] **T11: Create sign-in page** — Criteria: `src/app/(auth)/sign-in/[[...sign-in]]/page.tsx` renders `<SignIn />` from `@clerk/nextjs`. Routing set to hash-based or path-based as appropriate. Page has proper metadata.
+- [x] **T12: Create sign-up page** — Criteria: `src/app/(auth)/sign-up/[[...sign-up]]/page.tsx` renders `<SignUp />` from `@clerk/nextjs`. Same pattern as sign-in.
+- [x] **T13: Implement Clerk webhook route** — Criteria: `src/app/api/webhooks/clerk/route.ts` — POST handler that: (1) reads `CLERK_WEBHOOK_SECRET` from env, (2) verifies Svix signature from headers (`svix-id`, `svix-timestamp`, `svix-signature`), (3) parses body with Zod schema, (4) handles `user.created`, `user.updated`, `user.deleted` events, (5) returns 200 on success, 400 on invalid payload, 401 on bad signature. For now, handler logs events (Prisma integration deferred to issue 003).
+- [x] **T14: Add `CLERK_WEBHOOK_SECRET` to `.env.example`** — Criteria: Variable added with descriptive comment
 
 #### Shared Contracts
 
-- [ ] **T15: Create `src/lib/validations/user.ts`** — Criteria: Zod schemas for Clerk webhook event payload (`clerkWebhookEventSchema`). Types derived with `z.infer<>`. Named exports only.
-- [ ] **T16: Update `src/lib/validations/document.ts`** — Criteria: Basic Zod schemas: `createDocumentSchema` (title required, fileType enum), `updateDocumentSchema` (partial of create). Types derived with `z.infer<>`.
-- [ ] **T17: Update `src/lib/validations/chat.ts`** — Criteria: Basic Zod schemas: `createConversationSchema`, `sendMessageSchema` (content required, conversationId). Types derived with `z.infer<>`.
-- [ ] **T18: Update `src/lib/validations/upload.ts`** — Criteria: Basic Zod schemas: `uploadFileSchema` (file size max 10MB, allowed types: pdf, md, txt), `uploadUrlSchema` (valid URL string). Types derived with `z.infer<>`.
+- [x] **T15: Create `src/lib/validations/user.ts`** — Criteria: Zod schemas for Clerk webhook event payload (`clerkWebhookEventSchema`). Types derived with `z.infer<>`. Named exports only.
+- [x] **T16: Update `src/lib/validations/document.ts`** — Criteria: Basic Zod schemas: `createDocumentSchema` (title required, fileType enum), `updateDocumentSchema` (partial of create). Types derived with `z.infer<>`.
+- [x] **T17: Update `src/lib/validations/chat.ts`** — Criteria: Basic Zod schemas: `createConversationSchema`, `sendMessageSchema` (content required, conversationId). Types derived with `z.infer<>`.
+- [x] **T18: Update `src/lib/validations/upload.ts`** — Criteria: Basic Zod schemas: `uploadFileSchema` (file size max 10MB, allowed types: pdf, md, txt), `uploadUrlSchema` (valid URL string). Types derived with `z.infer<>`.
 
 ---
 
@@ -212,44 +212,3 @@ The Coder should implement sub-tasks in this exact order:
 18. **T18** — Update upload.ts validations
 
 ---
-
-### Coder Prompt (copy-paste to Coder agent)
-
-Implement issues 001-design-system-and-theming and 002-auth-and-user-sync following the Planner's plan.
-
-## Git Workflow (FIRST)
-1. `git fetch origin`
-2. `git checkout feat/001-002-foundations-design-auth`
-3. `git pull origin feat/001-002-foundations-design-auth`
-
-## Files to read BEFORE coding
-- `docs/plans/plan-001-002-foundations-design-auth.md` — The complete plan
-- `docs/standards/UI_STANDARDS.md` — Colors, Typography, Shadows, Dark Mode
-- `docs/standards/CODE_STANDARDS.md` — TypeScript, Naming, Imports
-- `docs/standards/API_STANDARDS.md` — Authentication, Webhooks, Validation
-- `docs/roadmap/ROADMAP.md` — Update issues 001 and 002 status from `claimed` to `in_progress`
-
-## Scope
-Design system foundation (CSS tokens, fonts, shadcn/ui, cn utility) + Clerk authentication (middleware, auth pages, webhook with Svix verification) + shared Zod validation schemas.
-
-## Sub-tasks (implement in this order)
-See "Implementation Order" section in the plan — 18 sub-tasks total.
-
-## Commits — GRANULAR (mandatory)
-- One commit per sub-task or logical group (e.g., T1+T6 can be one commit)
-- Commit IMMEDIATELY after completing each sub-task
-- Use selective `git add` (only files for current sub-task)
-- Max ~5-8 files per commit
-- NEVER do `git add .` + one giant commit
-
-## What NOT to do
-- Do NOT implement features outside the plan
-- Do NOT create Prisma models or database clients (that's issue 003)
-- Do NOT create ThemeProvider or theme toggle (that's issue 004)
-- Do NOT create new documentation (that's Planner/Reviewer's job)
-- Do NOT make architectural decisions — report if something wasn't planned
-
-## Final verification
-- Build passes: `npm run build`
-- Lint passes: `npm run lint`
-- Sub-tasks marked as [x] in plan-001-002-foundations-design-auth.md
