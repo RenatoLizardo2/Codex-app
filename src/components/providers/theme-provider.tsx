@@ -1,6 +1,16 @@
-// ThemeProvider — theme context provider (next-themes or custom)
 "use client";
 
-export default function ThemeProvider({ children }: { children: React.ReactNode }) {
-  return <>{children}</>;
+import { ThemeProvider as NextThemesProvider } from "next-themes";
+
+export function ThemeProvider({ children }: { children: React.ReactNode }) {
+  return (
+    <NextThemesProvider
+      attribute="class"
+      defaultTheme="light"
+      enableSystem={false}
+      themes={["light", "dark"]}
+    >
+      {children}
+    </NextThemesProvider>
+  );
 }
