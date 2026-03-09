@@ -46,7 +46,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] `002-auth-and-user-sync` — **Status:** `completed`
   Clerk integration: middleware for protected routes, sign-in/sign-up pages under `(auth)/` route group, Clerk webhook (`/api/webhooks/clerk`) to sync users to database. Zod validation on webhook payload.
 
-- [ ] `003-database-schema-and-clients` — **Status:** `in_progress`
+- [ ] `003-database-schema-and-clients` — **Status:** `in_review`
   Prisma schema with all 5 models (User, Document, Chunk, Conversation, Message). Supabase project setup with pgvector extension enabled. Service clients: `prisma.ts` (singleton), `supabase.ts` (server + browser), `voyage.ts`, `gemini.ts`. Environment variables in `.env.example`.
 
 ## Frontend
@@ -54,7 +54,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] `001-design-system-and-theming` — **Status:** `completed`
   Tailwind CSS v4 configuration with custom design tokens (all color variables for light + dark mode). Font loading via `next/font/google` (Playfair Display, Lora, Inter, JetBrains Mono). Custom shadows, borders, and spacing tokens in `globals.css`. shadcn/ui initialization with library theme mapped to semantic variables. Dark mode CSS variables (Library at Night palette). Utility `cn()` helper.
 
-- [ ] `004-app-shell-and-navigation` — **Status:** `in_progress`
+- [ ] `004-app-shell-and-navigation` — **Status:** `in_review`
   Root layout with all providers (QueryProvider, ThemeProvider). Route group layouts: `(marketing)` without sidebar, `(dashboard)` with sidebar. Sidebar component with navigation items and basic slide-in animation. Header with placeholder search. Theme toggle (light/dark) with working dark mode switch. Zustand stores (`ui-store`, `theme-store`). Basic landing page placeholder. Basic Motion primitives: FadeIn, SlideIn (used by sidebar and page content).
 
 **Shared contracts:**
