@@ -5,16 +5,16 @@ export type DocumentStatus = "processing" | "ready" | "error";
 export type FileType = "pdf" | "md" | "txt" | "url";
 export type MessageRole = "user" | "assistant";
 
-export interface User {
+export type User = {
   id: string;
   clerkId: string;
   email: string;
   name: string;
   createdAt: Date;
   plan: UserPlan;
-}
+};
 
-export interface Document {
+export type Document = {
   id: string;
   userId: string;
   title: string;
@@ -26,9 +26,9 @@ export interface Document {
   status: DocumentStatus;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-export interface Chunk {
+export type Chunk = {
   id: string;
   documentId: string;
   content: string;
@@ -38,29 +38,29 @@ export interface Chunk {
   sectionTitle: string | null;
   tokenCount: number;
   metadata: Record<string, unknown>;
-}
+};
 
-export interface Conversation {
+export type Conversation = {
   id: string;
   userId: string;
   documentId: string | null;
   title: string;
   createdAt: Date;
   updatedAt: Date;
-}
+};
 
-export interface Message {
+export type Message = {
   id: string;
   conversationId: string;
   role: MessageRole;
   content: string;
   citations: Citation[];
   createdAt: Date;
-}
+};
 
-export interface Citation {
+export type Citation = {
   chunkId: string;
   text: string;
   pageNumber: number | null;
   documentTitle: string;
-}
+};

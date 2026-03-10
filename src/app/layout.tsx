@@ -1,6 +1,8 @@
 import { Playfair_Display, Lora, Inter, JetBrains_Mono } from "next/font/google";
 import { ClerkProvider } from "@clerk/nextjs";
 
+import { ThemeProvider } from "@/src/components/providers/theme-provider";
+import { QueryProvider } from "@/src/components/providers/query-provider";
 import { siteConfig } from "@/src/config/site";
 import "./globals.css";
 
@@ -55,7 +57,11 @@ export default function RootLayout({
     >
       <body className="min-h-screen antialiased">
         <ClerkProvider>
-          {children}
+          <ThemeProvider>
+            <QueryProvider>
+              {children}
+            </QueryProvider>
+          </ThemeProvider>
         </ClerkProvider>
       </body>
     </html>

@@ -1,12 +1,16 @@
 // Navigation config — sidebar navigation items
 
-export interface NavItem {
+import { Library, MessageSquare } from "lucide-react";
+
+import type { LucideIcon } from "lucide-react";
+
+export type NavItem = {
   title: string;
   href: string;
-  icon?: string;
-}
+  icon: LucideIcon;
+};
 
 export const navigationItems: NavItem[] = [
-  { title: "Mi Biblioteca", href: "/library", icon: "library" },
-  { title: "Consultar al Bibliotecario", href: "/chat", icon: "message-square" },
+  { title: "My Library", href: "/library", icon: Library },
+  { title: "Ask the Librarian", href: "/chat", icon: MessageSquare },
 ];

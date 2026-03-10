@@ -1,16 +1,34 @@
+"use client";
+
 // Theme Store — light/dark mode preference (Zustand)
+
+import { create } from "zustand";
+import { persist } from "zustand/middleware";
 
 type Theme = "light" | "dark";
 
-interface ThemeState {
+type ThemeState = {
   theme: Theme;
-}
+};
 
-interface ThemeActions {
+type ThemeActions = {
   setTheme: (theme: Theme) => void;
   toggleTheme: () => void;
-}
+};
 
 export type ThemeStore = ThemeState & ThemeActions;
 
-// TODO: Implement Zustand store with create() + persist middleware
+export const useThemeStore = create<ThemeStore>()(
+  persist(
+    (set) => ({
+      theme: "light",
+
+      setTheme: (theme) => set({ theme }),
+      toggleTheme: () =>
+        set((state) => ({
+          theme: state.theme === "light" ? "dark" : "light",
+        })),
+    }),
+    { name: "codex-theme" }
+  )
+);

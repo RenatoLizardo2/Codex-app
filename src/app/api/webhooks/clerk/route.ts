@@ -1,6 +1,7 @@
 import { NextResponse } from "next/server";
 import { Webhook } from "svix";
 
+import { prisma } from "@/src/lib/clients/prisma";
 import { clerkWebhookEventSchema } from "@/src/lib/validations/user";
 
 import type { NextRequest } from "next/server";
@@ -59,22 +60,39 @@ export async function POST(request: NextRequest) {
   switch (event.type) {
     case "user.created": {
       const { id, email_addresses, first_name, last_name } = event.data;
-      const email = email_addresses[0]?.email_address;
-      console.log("[Webhook] user.created:", { id, email, first_name, last_name });
-      // TODO: issue 003 — persist to database
+      const email = email_addresses[0]?.email_address ?? "";
+      const name = [first_name, last_name].filter(Boolean).join(" ") || "User";
+      console.log("[Webhook] user.created:", { id, email });
+
+      await prisma.user.upsert({
+        where: { clerkId: id },
+        create: { clerkId: id, email, name },
+        update: { email, name },
+      });
       break;
     }
     case "user.updated": {
       const { id, email_addresses, first_name, last_name } = event.data;
-      const email = email_addresses[0]?.email_address;
-      console.log("[Webhook] user.updated:", { id, email, first_name, last_name });
-      // TODO: issue 003 — persist to database
+      const email = email_addresses[0]?.email_address ?? "";
+      const name = [first_name, last_name].filter(Boolean).join(" ") || "User";
+      console.log("[Webhook] user.updated:", { id, email });
+
+      await prisma.user.upsert({
+        where: { clerkId: id },
+        create: { clerkId: id, email, name },
+        update: { email, name },
+      });
       break;
     }
     case "user.deleted": {
       const { id } = event.data;
       console.log("[Webhook] user.deleted:", { id });
-      // TODO: issue 003 — persist to database
+
+      try {
+        await prisma.user.delete({ where: { clerkId: id } });
+      } catch (error) {
+        console.log("[Webhook] User not found for deletion, skipping:", id, error);
+      }
       break;
     }
   }

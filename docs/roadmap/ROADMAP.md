@@ -46,7 +46,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] `002-auth-and-user-sync` — **Status:** `completed`
   Clerk integration: middleware for protected routes, sign-in/sign-up pages under `(auth)/` route group, Clerk webhook (`/api/webhooks/clerk`) to sync users to database. Zod validation on webhook payload.
 
-- [ ] `003-database-schema-and-clients` — **Status:** `pending`
+- [x] `003-database-schema-and-clients` — **Status:** `completed`
   Prisma schema with all 5 models (User, Document, Chunk, Conversation, Message). Supabase project setup with pgvector extension enabled. Service clients: `prisma.ts` (singleton), `supabase.ts` (server + browser), `voyage.ts`, `gemini.ts`. Environment variables in `.env.example`.
 
 ## Frontend
@@ -54,7 +54,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] `001-design-system-and-theming` — **Status:** `completed`
   Tailwind CSS v4 configuration with custom design tokens (all color variables for light + dark mode). Font loading via `next/font/google` (Playfair Display, Lora, Inter, JetBrains Mono). Custom shadows, borders, and spacing tokens in `globals.css`. shadcn/ui initialization with library theme mapped to semantic variables. Dark mode CSS variables (Library at Night palette). Utility `cn()` helper.
 
-- [ ] `004-app-shell-and-navigation` — **Status:** `pending`
+- [x] `004-app-shell-and-navigation` — **Status:** `completed`
   Root layout with all providers (QueryProvider, ThemeProvider). Route group layouts: `(marketing)` without sidebar, `(dashboard)` with sidebar. Sidebar component with navigation items and basic slide-in animation. Header with placeholder search. Theme toggle (light/dark) with working dark mode switch. Zustand stores (`ui-store`, `theme-store`). Basic landing page placeholder. Basic Motion primitives: FadeIn, SlideIn (used by sidebar and page content).
 
 **Shared contracts:**
@@ -134,11 +134,11 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 - [x] User authentication with Clerk (Phase 0: `002`)
 - [x] User data sync via webhook (Phase 0: `002`)
-- [ ] Database schema with pgvector (Phase 0: `003`)
+- [x] Database schema with pgvector (Phase 0: `003`)
 - [x] Design system with library theme (Phase 0: `001`)
 - [x] Dark mode support (Phase 0: `001`)
-- [ ] App shell with sidebar navigation (Phase 0: `004`)
-- [ ] Basic Motion primitives — FadeIn, SlideIn (Phase 0: `004`)
+- [x] App shell with sidebar navigation (Phase 0: `004`)
+- [x] Basic Motion primitives — FadeIn, SlideIn (Phase 0: `004`)
 - [ ] Document upload to Vercel Blob (Phase 1: `005`)
 - [ ] Text extraction from PDF, MD, TXT, URL (Phase 1: `005`)
 - [ ] Library UI with book/tome metaphor (Phase 1: `006`)
