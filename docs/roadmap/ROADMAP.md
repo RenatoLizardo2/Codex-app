@@ -71,12 +71,12 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Backend
 
-- [ ] `005-document-upload-and-storage` — **Status:** `pending`
+- [ ] `005-document-upload-and-storage` — **Status:** `claimed`
   Document CRUD API routes (`/api/documents` — GET list, POST create; `/api/documents/[id]` — GET, PATCH, DELETE). Vercel Blob integration for file storage. Upload validation (file size, type). Text extraction pipeline: parsers for PDF (`pdf-parse`), Markdown, plain text, and URL (fetch + extract). Document status management (processing → ready → error).
 
 ## Frontend
 
-- [ ] `006-library-ui-and-document-view` — **Status:** `pending`
+- [ ] `006-library-ui-and-document-view` — **Status:** `claimed`
   Library page (`/library`): BookShelf grid with responsive columns (1→2→3→4) and stagger entrance animation. BookCard component with tome styling (spine color, serif title, page count badge) and hover effect (subtle scale + shadow lift). UploadZone with drag-and-drop. EmptyLibrary state. Document viewer page (`/document/[id]`): document content display, summary section placeholder, metadata. TanStack Query hooks: `useDocuments`, `useDocumentStatus` (polling). Upload hook with progress tracking. Loading skeletons (parchment shimmer) and error states for all views.
 
 ---
