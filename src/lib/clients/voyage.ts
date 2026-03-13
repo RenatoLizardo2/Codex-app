@@ -1,6 +1,9 @@
 // Voyage AI client — embeddings generation and reranking
 
-import { VoyageAIClient } from "voyageai";
+// Direct CJS import — voyageai ESM has broken internal directory imports
+// that Turbopack cannot resolve
+// eslint-disable-next-line @typescript-eslint/no-require-imports
+const { VoyageAIClient } = require("voyageai") as typeof import("voyageai");
 
 function getClient() {
   const apiKey = process.env.VOYAGE_API_KEY;
