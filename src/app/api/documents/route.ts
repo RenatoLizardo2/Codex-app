@@ -4,12 +4,10 @@ import { put } from "@vercel/blob";
 
 import { prisma } from "@/src/lib/clients/prisma";
 import { extractText } from "@/src/lib/parsers";
-import { uploadFileSchema, uploadUrlSchema } from "@/src/lib/validations/upload";
+import { uploadFileSchema, uploadUrlSchema, MAX_FILE_SIZE } from "@/src/lib/validations/upload";
 
 import type { NextRequest } from "next/server";
 import type { FileType } from "@/src/types/database";
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024; // 10MB
 
 function getFileType(mimeType: string): FileType | null {
   const mimeToType: Record<string, FileType> = {

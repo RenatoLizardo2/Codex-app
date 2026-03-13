@@ -1,43 +1,43 @@
 // RAG types — chunks, embeddings, and pipeline types
 
-export interface ParsedDocument {
+export type ParsedDocument = {
   content: string;
   metadata: {
     title?: string;
     pageCount?: number;
     sections?: string[];
   };
-}
+};
 
-export interface TextChunk {
+export type TextChunk = {
   content: string;
   index: number;
   pageNumber: number | null;
   sectionTitle: string | null;
   tokenCount: number;
-}
+};
 
-export interface EmbeddedChunk extends TextChunk {
+export type EmbeddedChunk = TextChunk & {
   embedding: number[];
-}
+};
 
-export interface RetrievedChunk {
+export type RetrievedChunk = {
   id: string;
   content: string;
   score: number;
   documentId: string;
   pageNumber: number | null;
   sectionTitle: string | null;
-}
+};
 
-export interface RerankedChunk extends RetrievedChunk {
+export type RerankedChunk = RetrievedChunk & {
   rerankScore: number;
-}
+};
 
-export interface PipelineOptions {
+export type PipelineOptions = {
   topK?: number;
   semanticWeight?: number;
   documentId?: string | null;
-}
+};
 
 // TODO: Define additional RAG pipeline types

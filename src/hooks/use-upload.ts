@@ -7,14 +7,7 @@ import {
   useCreateDocumentFromUrl,
 } from "@/src/hooks/queries/use-documents";
 import { useUIStore } from "@/src/stores/ui-store";
-
-const ALLOWED_MIME_TYPES = [
-  "application/pdf",
-  "text/markdown",
-  "text/plain",
-] as const;
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from "@/src/lib/validations/upload";
 
 export function useUpload() {
   const [error, setError] = useState<string | null>(null);

@@ -4,14 +4,7 @@ import { useCallback, useRef, useState } from "react";
 import { Upload } from "lucide-react";
 
 import { cn } from "@/src/lib/utils/cn";
-
-const ALLOWED_MIME_TYPES = [
-  "application/pdf",
-  "text/markdown",
-  "text/plain",
-] as const;
-
-const MAX_FILE_SIZE = 10 * 1024 * 1024;
+import { ALLOWED_MIME_TYPES, MAX_FILE_SIZE } from "@/src/lib/validations/upload";
 
 type UploadZoneProps = {
   onUpload: (file: File) => void;

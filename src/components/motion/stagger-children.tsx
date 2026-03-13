@@ -9,6 +9,7 @@ type StaggerChildrenProps = {
   children: React.ReactNode;
   className?: string;
   staggerDelay?: number;
+  as?: React.ElementType;
 };
 
 const itemVariants = {
@@ -27,6 +28,7 @@ export function StaggerChildren({
   children,
   className,
   staggerDelay = 0.05,
+  as = "div",
 }: StaggerChildrenProps) {
   const containerVariants = useMemo(
     () => ({
@@ -41,15 +43,17 @@ export function StaggerChildren({
     [staggerDelay]
   );
 
+  const MotionComponent = motion.create(as);
+
   return (
-    <motion.div
+    <MotionComponent
       variants={containerVariants}
       initial="hidden"
       animate="visible"
       className={className}
     >
       {children}
-    </motion.div>
+    </MotionComponent>
   );
 }
 
