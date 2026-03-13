@@ -5,9 +5,29 @@ import { put } from "@vercel/blob";
 import { prisma } from "@/src/lib/clients/prisma";
 import { extractText } from "@/src/lib/parsers";
 import { uploadFileSchema, uploadUrlSchema, MAX_FILE_SIZE } from "@/src/lib/validations/upload";
+import { chunkText } from "@/src/lib/rag/chunking";
+import {
+  generateChunkEmbeddings,
+  storeChunksWithEmbeddings,
+  updateSearchVectors,
+} from "@/src/lib/rag/embeddings";
 
 import type { NextRequest } from "next/server";
 import type { FileType } from "@/src/types/database";
+
+async function indexDocument(documentId: string, extractedText: string): Promise<void> {
+  try {
+    const chunks = chunkText(extractedText);
+    if (chunks.length === 0) return;
+
+    const embeddedChunks = await generateChunkEmbeddings(chunks);
+    await storeChunksWithEmbeddings(documentId, embeddedChunks);
+    await updateSearchVectors(documentId);
+  } catch (error) {
+    // Fire-and-forget: indexing failure should not break the upload
+    console.error("[Documents] Automatic indexing failed:", error);
+  }
+}
 
 function getFileType(mimeType: string): FileType | null {
   const mimeToType: Record<string, FileType> = {
@@ -106,6 +126,11 @@ async function handleFileUpload(request: NextRequest, userId: string) {
       },
     });
 
+    // Automatic indexing — fire-and-forget, does not block upload response
+    if (parsed.content) {
+      await indexDocument(document.id, parsed.content);
+    }
+
     return NextResponse.json({ data: updatedDocument }, { status: 201 });
   } catch (error) {
     console.error("[Documents] Text extraction failed:", error);
@@ -159,6 +184,11 @@ async function handleUrlUpload(request: NextRequest, userId: string) {
         status: "ready",
       },
     });
+
+    // Automatic indexing — fire-and-forget, does not block upload response
+    if (parsed.content) {
+      await indexDocument(document.id, parsed.content);
+    }
 
     return NextResponse.json({ data: updatedDocument }, { status: 201 });
   } catch (error) {
