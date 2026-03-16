@@ -7,12 +7,12 @@ import { generateText } from "ai";
 
 import type { RerankedChunk } from "@/src/types/rag";
 import type { Citation } from "@/src/types/database";
-import type { CoreMessage } from "ai";
+import type { ModelMessage } from "ai";
 
 export type GenerationOptions = {
   query: string;
   chunks: RerankedChunk[];
-  conversationHistory?: CoreMessage[];
+  conversationHistory?: ModelMessage[];
   documentId?: string | null;
 };
 
@@ -102,9 +102,9 @@ export async function enrichCitationsWithTitles(
 
 export function buildMessagesArray(
   query: string,
-  conversationHistory?: CoreMessage[]
-): CoreMessage[] {
-  const messages: CoreMessage[] = [];
+  conversationHistory?: ModelMessage[]
+): ModelMessage[] {
+  const messages: ModelMessage[] = [];
 
   // Include last 10 messages from conversation history
   if (conversationHistory && conversationHistory.length > 0) {
@@ -118,7 +118,7 @@ export function buildMessagesArray(
 
 export async function generateDocumentSummary(
   documentId: string,
-  chunks: { content: string; chunkIndex: number }[]
+  chunks: { content: string; index: number }[]
 ): Promise<string | null> {
   if (chunks.length === 0) return null;
 
@@ -131,7 +131,7 @@ export async function generateDocumentSummary(
 
     const { text } = await generateText({
       model: geminiModel,
-      maxTokens: ragConfig.generation.maxTokens,
+      maxOutputTokens: ragConfig.generation.maxTokens,
       system:
         "You are a concise document summarizer. Summarize the following document excerpts in 2-3 sentences. Focus on the main topics and key information.",
       messages: [{ role: "user", content: combinedText }],
@@ -156,11 +156,11 @@ export async function generateDocumentSummary(
 }
 
 function selectRepresentativeChunks<
-  T extends { content: string; chunkIndex: number },
+  T extends { content: string; index: number },
 >(chunks: T[], maxCount: number): T[] {
   if (chunks.length <= maxCount) return chunks;
 
-  const sorted = [...chunks].sort((a, b) => a.chunkIndex - b.chunkIndex);
+  const sorted = [...chunks].sort((a, b) => a.index - b.index);
   const selected: T[] = [sorted[0]!];
   const step = (sorted.length - 1) / (maxCount - 1);
 

@@ -16,7 +16,7 @@ import {
 } from "@/src/lib/rag/generation";
 
 import type { NextRequest } from "next/server";
-import type { CoreMessage } from "ai";
+import type { ModelMessage } from "ai";
 
 export async function POST(request: NextRequest) {
   try {
@@ -86,7 +86,7 @@ export async function POST(request: NextRequest) {
 
     // Remove the last message (the one we just created) from history for the prompt
     const previousMessages = historyMessages.slice(0, -1);
-    const conversationHistory: CoreMessage[] = previousMessages.map((m) => ({
+    const conversationHistory: ModelMessage[] = previousMessages.map((m) => ({
       role: m.role as "user" | "assistant",
       content: m.content,
     }));
@@ -105,7 +105,7 @@ export async function POST(request: NextRequest) {
       model: geminiModel,
       system: systemPrompt,
       messages,
-      maxTokens: ragConfig.generation.maxTokens,
+      maxOutputTokens: ragConfig.generation.maxTokens,
       onFinish: async ({ text }) => {
         try {
           // Extract and enrich citations
@@ -133,12 +133,11 @@ export async function POST(request: NextRequest) {
       },
     });
 
-    const response = result.toDataStreamResponse();
-
-    // Add conversation ID header for new conversations
-    response.headers.set("X-Conversation-Id", conversationId);
-
-    return response;
+    return result.toTextStreamResponse({
+      headers: {
+        "X-Conversation-Id": conversationId,
+      },
+    });
   } catch (error) {
     if (error instanceof z.ZodError) {
       return NextResponse.json(

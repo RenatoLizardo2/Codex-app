@@ -64,16 +64,9 @@ export function useSendMessage() {
           if (done) break;
 
           const chunk = decoder.decode(value, { stream: true });
-          // Parse Vercel AI SDK data stream format
-          const lines = chunk.split("\n");
-          for (const line of lines) {
-            // Text delta lines start with "0:"
-            if (line.startsWith("0:")) {
-              const textContent = JSON.parse(line.slice(2)) as string;
-              accumulated += textContent;
-              setStreamingContent(accumulated);
-            }
-          }
+          // Plain text stream from toTextStreamResponse()
+          accumulated += chunk;
+          setStreamingContent(accumulated);
         }
 
         // Invalidate queries after streaming completes
