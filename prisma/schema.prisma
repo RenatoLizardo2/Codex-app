@@ -52,6 +52,8 @@ model Chunk {
   sectionTitle String?
   tokenCount   Int
   metadata     Json                        @default("{}")
+  // GIN index created via raw SQL migration (prisma/migrations/add_search_vector/migration.sql)
+  searchVector Unsupported("tsvector")?
   document     Document                    @relation(fields: [documentId], references: [id], onDelete: Cascade)
 
   @@index([documentId])

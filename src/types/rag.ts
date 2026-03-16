@@ -34,10 +34,19 @@ export type RerankedChunk = RetrievedChunk & {
   rerankScore: number;
 };
 
+export type SearchOptions = {
+  userId: string;
+  documentId?: string | null;
+  topK?: number;
+};
+
+export type HybridSearchOptions = SearchOptions & {
+  semanticWeight?: number;
+  keywordWeight?: number;
+};
+
 export type PipelineOptions = {
   topK?: number;
   semanticWeight?: number;
   documentId?: string | null;
 };
-
-// TODO: Define additional RAG pipeline types
