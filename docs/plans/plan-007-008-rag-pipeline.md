@@ -4,7 +4,7 @@ File: docs/plans/plan-007-008-rag-pipeline.md
 Issues: 007-chunking-and-embeddings, 008-search-and-retrieval
 Date: 2026-03-13
 Phase: 2
-Status: Implemented
+Status: Done
 
 ### Objective
 

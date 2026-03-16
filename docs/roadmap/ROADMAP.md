@@ -87,10 +87,10 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Backend
 
-- [ ] `007-chunking-and-embeddings` — **Status:** `in_progress`
+- [x] `007-chunking-and-embeddings` — **Status:** `completed`
   Semantic chunking engine (`lib/rag/chunking.ts`): split by paragraphs/sections, 200-500 token target, 10-15% overlap, preserve metadata (page number, section title, heading). Voyage AI embeddings integration (`lib/rag/embeddings.ts`): batch embedding generation (max 128 per call), 1024-dimension vectors. pgvector storage: insert chunks with embeddings. Embeddings API route (`/api/embeddings`) to trigger indexing for a document. Background processing: update document status as chunks are indexed.
 
-- [ ] `008-search-and-retrieval` — **Status:** `in_progress`
+- [x] `008-search-and-retrieval` — **Status:** `completed`
   Hybrid search (`lib/rag/retrieval.ts`): cosine similarity via pgvector + PostgreSQL full-text search (tsvector/tsquery), weighted combination (0.7 semantic + 0.3 keyword). Voyage reranking (`lib/rag/reranking.ts`): reorder retrieved chunks by relevance. RAG pipeline orchestrator (`lib/rag/pipeline.ts`): query → embed → retrieve → rerank → return top-K chunks. Search API route (`/api/search`).
 
 ---
@@ -144,12 +144,12 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [ ] Library UI with book/tome metaphor (Phase 1: `006`)
 - [ ] Book card hover effects and stagger entrance (Phase 1: `006`)
 - [ ] Loading skeletons with parchment shimmer (Phase 1: `006`)
-- [ ] Semantic chunking with overlap (Phase 2: `007`)
-- [ ] Voyage AI embeddings (Phase 2: `007`)
-- [ ] pgvector indexing (Phase 2: `007`)
-- [ ] Hybrid search: semantic + full-text (Phase 2: `008`)
-- [ ] Voyage reranking (Phase 2: `008`)
-- [ ] RAG pipeline orchestration (Phase 2: `008`)
+- [x] Semantic chunking with overlap (Phase 2: `007`)
+- [x] Voyage AI embeddings (Phase 2: `007`)
+- [x] pgvector indexing (Phase 2: `007`)
+- [x] Hybrid search: semantic + full-text (Phase 2: `008`)
+- [x] Voyage reranking (Phase 2: `008`)
+- [x] RAG pipeline orchestration (Phase 2: `008`)
 - [ ] Gemini Flash streaming via Vercel AI SDK (Phase 3: `009`)
 - [ ] Chat with inline citations (Phase 3: `009`, `010`)
 - [ ] Conversation history and persistence (Phase 3: `009`, `010`)
