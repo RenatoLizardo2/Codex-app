@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { z } from "zod";
 
 import { prisma } from "@/src/lib/clients/prisma";
+import { getOrCreateUser } from "@/src/lib/auth/get-or-create-user";
 
 import type { NextRequest } from "next/server";
 
@@ -16,17 +16,14 @@ const updateTitleSchema = z.object({
 
 export async function GET(request: NextRequest, context: RouteContext) {
   try {
-    const { userId: clerkId } = await auth();
+    const authResult = await getOrCreateUser();
 
-    if (!clerkId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (authResult.error) {
+      const status = authResult.error === "unauthorized" ? 401 : 500;
+      return NextResponse.json({ error: authResult.error }, { status });
     }
 
-    const user = await prisma.user.findUnique({ where: { clerkId } });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
+    const user = authResult.user;
 
     const { id } = await context.params;
 
@@ -59,17 +56,14 @@ export async function GET(request: NextRequest, context: RouteContext) {
 
 export async function PATCH(request: NextRequest, context: RouteContext) {
   try {
-    const { userId: clerkId } = await auth();
+    const authResult = await getOrCreateUser();
 
-    if (!clerkId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (authResult.error) {
+      const status = authResult.error === "unauthorized" ? 401 : 500;
+      return NextResponse.json({ error: authResult.error }, { status });
     }
 
-    const user = await prisma.user.findUnique({ where: { clerkId } });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
+    const user = authResult.user;
 
     const { id } = await context.params;
 
@@ -114,17 +108,14 @@ export async function PATCH(request: NextRequest, context: RouteContext) {
 
 export async function DELETE(_request: NextRequest, context: RouteContext) {
   try {
-    const { userId: clerkId } = await auth();
+    const authResult = await getOrCreateUser();
 
-    if (!clerkId) {
-      return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+    if (authResult.error) {
+      const status = authResult.error === "unauthorized" ? 401 : 500;
+      return NextResponse.json({ error: authResult.error }, { status });
     }
 
-    const user = await prisma.user.findUnique({ where: { clerkId } });
-
-    if (!user) {
-      return NextResponse.json({ error: "User not found" }, { status: 404 });
-    }
+    const user = authResult.user;
 
     const { id } = await context.params;
 
