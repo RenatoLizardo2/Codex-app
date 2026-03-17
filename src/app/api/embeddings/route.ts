@@ -10,6 +10,7 @@ import {
   storeChunksWithEmbeddings,
   updateSearchVectors,
 } from "@/src/lib/rag/embeddings";
+import { generateDocumentSummary } from "@/src/lib/rag/generation";
 
 import type { NextRequest } from "next/server";
 
@@ -70,6 +71,11 @@ export async function POST(request: NextRequest) {
       await prisma.document.update({
         where: { id: document.id },
         data: { status: "ready", totalChunks },
+      });
+
+      // Non-blocking auto-summary generation
+      generateDocumentSummary(document.id, chunks).catch((err) => {
+        console.error("[Embeddings] Auto-summary failed (non-blocking):", err);
       });
 
       return NextResponse.json({

@@ -101,12 +101,12 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Backend
 
-- [ ] `009-chat-api-and-generation` — **Status:** `pending`
+- [x] `009-chat-api-and-generation` — **Status:** `completed`
   Gemini Flash integration via Vercel AI SDK (`lib/clients/gemini.ts`). Prompt construction (`lib/rag/generation.ts`): system prompt with librarian persona, context injection from retrieved chunks, citation formatting instructions. Streaming chat endpoint (`/api/chat`): authenticate → validate → retrieve relevant chunks via RAG pipeline → stream response with `streamText()`. Citation extraction: parse model output for chunk references, store in message as JSONB. Conversation and message persistence: create/update conversations, store messages with role and citations. Auto-summary generation: after document indexing completes, send representative chunks to Gemini to generate a document summary, store in document record.
 
 ## Frontend
 
-- [ ] `010-chat-ui-and-conversations` — **Status:** `pending`
+- [x] `010-chat-ui-and-conversations` — **Status:** `completed`
   Chat interface (`/chat` and `/chat/[conversationId]`): full chat layout with message list and input. MessageBubble component (user/assistant variants) with slide-up entrance animation. StreamingText component with typewriter animation. CitationCard component linking to source document/page. ChatInput with submit handling. Conversation sidebar: list of past conversations, create new conversation. Document-scoped chat (from document view page). Document status polling UI: real-time status indicators (processing spinner, ready badge, error state). Summary display on document page. TanStack Query hooks: `useConversations`, `useMessages`. Zustand `chat-store` for draft input and active document selection. Loading, empty, and error states for all chat views.
 
 ---
@@ -150,12 +150,12 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] Hybrid search: semantic + full-text (Phase 2: `008`)
 - [x] Voyage reranking (Phase 2: `008`)
 - [x] RAG pipeline orchestration (Phase 2: `008`)
-- [ ] Gemini Flash streaming via Vercel AI SDK (Phase 3: `009`)
-- [ ] Chat with inline citations (Phase 3: `009`, `010`)
-- [ ] Conversation history and persistence (Phase 3: `009`, `010`)
-- [ ] Auto document summary (Phase 3: `009`)
-- [ ] Document status polling UI (Phase 3: `010`)
-- [ ] Chat message animations (Phase 3: `010`)
+- [x] Gemini Flash streaming via Vercel AI SDK (Phase 3: `009`)
+- [x] Chat with inline citations (Phase 3: `009`, `010`)
+- [x] Conversation history and persistence (Phase 3: `009`, `010`)
+- [x] Auto document summary (Phase 3: `009`)
+- [x] Document status polling UI (Phase 3: `010`)
+- [x] Chat message animations (Phase 3: `010`)
 - [ ] Advanced animations — BookTilt, PageTransition, layout (Phase 4: `011`)
 - [ ] Unit tests with Vitest (Phase 4: `012`)
 - [ ] E2E tests with Playwright (Phase 4: `012`)

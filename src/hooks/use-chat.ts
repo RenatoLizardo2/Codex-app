@@ -1,4 +1,5 @@
-// useChat — custom hook for chat with streaming via Vercel AI SDK
+// useChat — re-exports streaming chat hook from queries/use-messages
+// The useSendMessage hook handles streaming via raw fetch with ReadableStream
+// (NOT Vercel AI SDK useChat — see plan decision D2)
 
-// TODO: Implement chat hook with useChat from 'ai/react'
-export {};
+export { useSendMessage } from "@/src/hooks/queries/use-messages";

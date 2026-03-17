@@ -2,7 +2,8 @@
 
 import { use } from "react";
 import Link from "next/link";
-import { ArrowLeft, Loader2, AlertCircle } from "lucide-react";
+import { useRouter } from "next/navigation";
+import { ArrowLeft, Loader2, AlertCircle, MessageSquare } from "lucide-react";
 
 import { DocumentSummary } from "@/src/components/library/document-summary";
 import { DocumentViewer } from "@/src/components/library/document-viewer";
@@ -15,6 +16,7 @@ type DocumentPageProps = {
 
 export default function DocumentPage({ params }: DocumentPageProps) {
   const { id } = use(params);
+  const router = useRouter();
   const { document, isLoading, error } = useDocumentStatus(id);
 
   if (isLoading) {
@@ -88,6 +90,24 @@ export default function DocumentPage({ params }: DocumentPageProps) {
       </Link>
 
       <DocumentViewer document={document} />
+
+      {document.status === "ready" && (
+        <button
+          onClick={() => {
+            router.push(`/chat?documentId=${document.id}`);
+          }}
+          className={cn(
+            "inline-flex items-center gap-2 rounded-md px-5 py-2.5",
+            "bg-primary text-primary-foreground",
+            "font-ui text-sm font-medium",
+            "hover:opacity-90 transition-opacity",
+            "focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2"
+          )}
+        >
+          <MessageSquare className="h-4 w-4" />
+          Ask about this document
+        </button>
+      )}
 
       {document.status === "processing" && (
         <div

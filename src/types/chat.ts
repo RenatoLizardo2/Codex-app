@@ -21,4 +21,20 @@ export interface StreamingState {
   partialContent: string;
 }
 
-// TODO: Define additional chat-related types
+export type ConversationWithMessages = {
+  id: string;
+  userId: string;
+  documentId: string | null;
+  title: string;
+  createdAt: Date;
+  updatedAt: Date;
+  messages: ChatMessage[];
+};
+
+export type ConversationListItem = {
+  id: string;
+  title: string;
+  documentId: string | null;
+  updatedAt: Date;
+  lastMessage: string | null;
+};
