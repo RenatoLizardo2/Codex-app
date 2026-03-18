@@ -3,6 +3,7 @@
 import { motion } from "motion/react";
 
 import { StreamingText } from "@/src/components/chat/streaming-text";
+import { MarkdownContent } from "@/src/components/chat/markdown-content";
 import { CitationCard } from "@/src/components/chat/citation-card";
 import { cn } from "@/src/lib/utils/cn";
 
@@ -40,10 +41,12 @@ export function MessageBubble({ message, isStreaming = false }: MessageBubblePro
       >
         {isStreaming ? (
           <StreamingText content={message.content} isStreaming />
-        ) : (
+        ) : isUser ? (
           <p className="font-body text-base leading-relaxed whitespace-pre-wrap">
             {message.content}
           </p>
+        ) : (
+          <MarkdownContent content={message.content} />
         )}
 
         {hasCitations && (

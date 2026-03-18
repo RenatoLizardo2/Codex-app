@@ -3,6 +3,8 @@
 import { useEffect, useRef, useSyncExternalStore, useCallback } from "react";
 import { motion, useReducedMotion } from "motion/react";
 
+import { MarkdownContent } from "@/src/components/chat/markdown-content";
+
 type StreamingTextProps = {
   content: string;
   isStreaming?: boolean;
@@ -91,9 +93,8 @@ export function StreamingText({ content, isStreaming = false }: StreamingTextPro
       initial={{ opacity: 0 }}
       animate={{ opacity: 1 }}
       transition={{ duration: 0.15 }}
-      className="font-body text-base leading-relaxed whitespace-pre-wrap"
     >
-      {visibleContent}
+      <MarkdownContent content={visibleContent} />
       {isStreaming && displayedLength < content.length && (
         <span className="inline-block h-4 w-1 animate-pulse bg-foreground/60" />
       )}
