@@ -6,6 +6,7 @@ import { BookOpen, AlertCircle, Loader2 } from "lucide-react";
 
 import { MessageBubble } from "@/src/components/chat/message-bubble";
 import { ChatInput } from "@/src/components/chat/chat-input";
+import { DeskLamp } from "@/src/components/motion/desk-lamp";
 import { useConversation } from "@/src/hooks/queries/use-conversations";
 import {
   useSendMessage,
@@ -137,7 +138,8 @@ export function ChatInterface({
   return (
     <div className="flex h-full flex-col">
       {/* Message list */}
-      <div className="flex-1 overflow-y-auto px-4 py-6">
+      <div className="relative flex-1 overflow-y-auto px-4 py-6">
+        <DeskLamp />
         {allMessages.length === 0 ? (
           <div className="flex h-full flex-col items-center justify-center gap-4 text-center">
             <motion.div
