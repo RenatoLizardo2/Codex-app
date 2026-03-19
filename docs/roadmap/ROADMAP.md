@@ -117,7 +117,7 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 ## Frontend
 
-- [ ] `011-advanced-animations` — **Status:** `pending`
+- [x] `011-advanced-animations` — **Status:** `completed`
   Advanced Motion animation primitives (`components/motion/`): BookTilt (rotateY 3D tilt + gold glow on hover), StaggerChildren (configurable delay), PageTransition (AnimatePresence route transitions). Sidebar expand/collapse with layout animation. Modal open/close animations (book opening effect). Desk lamp radial gradient effect in dark mode chat area. Parallax on library header. Grid layout animation when filtering/searching. Respect `prefers-reduced-motion` — disable all non-essential animations.
 
 ## Full-Stack
@@ -127,6 +127,9 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 
 - [ ] `013-production-readiness` — **Status:** `pending`
   Responsive mobile: sidebar as drawer, touch-friendly targets (44x44px), single-column layouts on mobile, chat full-screen on mobile. Accessibility audit: contrast ratios, keyboard navigation, screen reader labels. README: project description, architecture diagram, screenshots/GIFs, setup instructions, tech decisions, RAGAS evaluation metrics. `.env.example` fully documented. OG image for social sharing. Final performance review.
+
+- [ ] `014-library-theme` — **Status:** `pending`
+  Third visual theme ("The Study") in addition to Light and Dark modes. Theme toggle cycles through three modes: Light → Dark → Study. Chat area: wooden desk/table texture background. Message bubbles styled as parchment paper sheets with subtle aged-paper edges and soft drop shadows. Sidebar and header with rich dark wood tones. Accent colors: deep amber, aged gold, ink brown. Custom CSS variables for all Study theme tokens. Typography retains serif fonts with slightly warmer tones. Subtle grain/texture overlays on surfaces. Theme preference persisted in Zustand theme-store and localStorage.
 
 ---
 
@@ -156,10 +159,11 @@ Each issue maps to a feature branch: `feat/NNN-descriptive-name`
 - [x] Auto document summary (Phase 3: `009`)
 - [x] Document status polling UI (Phase 3: `010`)
 - [x] Chat message animations (Phase 3: `010`)
-- [ ] Advanced animations — BookTilt, PageTransition, layout (Phase 4: `011`)
+- [x] Advanced animations — BookTilt, PageTransition, layout (Phase 4: `011`)
 - [ ] Unit tests with Vitest (Phase 4: `012`)
 - [ ] E2E tests with Playwright (Phase 4: `012`)
 - [ ] Rate limiting (Phase 4: `012`)
 - [ ] Responsive mobile (Phase 4: `013`)
 - [ ] Accessibility audit (Phase 4: `013`)
 - [ ] README with architecture + screenshots (Phase 4: `013`)
+- [ ] Study theme — wooden desk chat, parchment bubbles (Phase 4: `014`)
