@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { del } from "@vercel/blob";
 
 import { prisma } from "@/src/lib/clients/prisma";
+import { getOrCreateUser } from "@/src/lib/auth/get-or-create-user";
 import { updateDocumentSchema } from "@/src/lib/validations/document";
 
 import type { NextRequest } from "next/server";
@@ -10,19 +10,14 @@ import type { NextRequest } from "next/server";
 type RouteParams = { params: Promise<{ id: string }> };
 
 async function getAuthenticatedUser() {
-  const { userId: clerkId } = await auth();
+  const authResult = await getOrCreateUser();
 
-  if (!clerkId) {
-    return { error: NextResponse.json({ error: "Unauthorized" }, { status: 401 }) };
+  if (authResult.error) {
+    const status = authResult.error === "unauthorized" ? 401 : 500;
+    return { error: NextResponse.json({ error: authResult.error }, { status }) };
   }
 
-  const user = await prisma.user.findUnique({ where: { clerkId } });
-
-  if (!user) {
-    return { error: NextResponse.json({ error: "User not found" }, { status: 404 }) };
-  }
-
-  return { user };
+  return { user: authResult.user };
 }
 
 async function getOwnedDocument(documentId: string, userId: string) {

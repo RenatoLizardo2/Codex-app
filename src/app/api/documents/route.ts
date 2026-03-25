@@ -1,8 +1,8 @@
 import { NextResponse } from "next/server";
-import { auth } from "@clerk/nextjs/server";
 import { put } from "@vercel/blob";
 
 import { prisma } from "@/src/lib/clients/prisma";
+import { getOrCreateUser } from "@/src/lib/auth/get-or-create-user";
 import { extractText } from "@/src/lib/parsers";
 import { uploadFileSchema, uploadUrlSchema, MAX_FILE_SIZE } from "@/src/lib/validations/upload";
 import { chunkText } from "@/src/lib/rag/chunking";
@@ -39,17 +39,14 @@ function getFileType(mimeType: string): FileType | null {
 }
 
 export async function POST(request: NextRequest) {
-  const { userId: clerkId } = await auth();
+  const authResult = await getOrCreateUser();
 
-  if (!clerkId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (authResult.error) {
+    const status = authResult.error === "unauthorized" ? 401 : 500;
+    return NextResponse.json({ error: authResult.error }, { status });
   }
 
-  const user = await prisma.user.findUnique({ where: { clerkId } });
-
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  }
+  const user = authResult.user;
 
   const contentType = request.headers.get("content-type") || "";
 
@@ -97,7 +94,7 @@ async function handleFileUpload(request: NextRequest, userId: string) {
       ? titleField.trim()
       : file.name;
 
-  const blob = await put(file.name, file, { access: "public" });
+  const blob = await put(file.name, file, { access: "private" });
 
   const document = await prisma.document.create({
     data: {
@@ -204,17 +201,14 @@ async function handleUrlUpload(request: NextRequest, userId: string) {
 }
 
 export async function GET(request: NextRequest) {
-  const { userId: clerkId } = await auth();
+  const authResult = await getOrCreateUser();
 
-  if (!clerkId) {
-    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
+  if (authResult.error) {
+    const status = authResult.error === "unauthorized" ? 401 : 500;
+    return NextResponse.json({ error: authResult.error }, { status });
   }
 
-  const user = await prisma.user.findUnique({ where: { clerkId } });
-
-  if (!user) {
-    return NextResponse.json({ error: "User not found" }, { status: 404 });
-  }
+  const user = authResult.user;
 
   const { searchParams } = new URL(request.url);
   const page = Math.max(1, Number(searchParams.get("page")) || 1);

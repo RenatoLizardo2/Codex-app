@@ -43,27 +43,30 @@ export async function storeChunksWithEmbeddings(
 ): Promise<number> {
   if (chunks.length === 0) return 0;
 
-  await prisma.$transaction(async (tx) => {
-    // Delete existing chunks for idempotent re-indexing
-    await tx.chunk.deleteMany({ where: { documentId } });
+  await prisma.$transaction(
+    async (tx) => {
+      // Delete existing chunks for idempotent re-indexing
+      await tx.chunk.deleteMany({ where: { documentId } });
 
-    // Insert each chunk with raw SQL for pgvector support
-    for (const chunk of chunks) {
-      const id = crypto.randomUUID();
-      const embeddingVector = "[" + chunk.embedding.join(",") + "]";
+      // Insert each chunk with raw SQL for pgvector support
+      for (const chunk of chunks) {
+        const id = crypto.randomUUID();
+        const embeddingVector = "[" + chunk.embedding.join(",") + "]";
 
-      await tx.$executeRaw`
-        INSERT INTO "Chunk" (id, "documentId", content, embedding, "chunkIndex", "pageNumber", "sectionTitle", "tokenCount", metadata)
-        VALUES (${id}, ${documentId}, ${chunk.content}, ${embeddingVector}::vector, ${chunk.index}, ${chunk.pageNumber}, ${chunk.sectionTitle}, ${chunk.tokenCount}, '{}'::jsonb)
-      `;
-    }
+        await tx.$executeRaw`
+          INSERT INTO "Chunk" (id, "documentId", content, embedding, "chunkIndex", "pageNumber", "sectionTitle", "tokenCount", metadata)
+          VALUES (${id}, ${documentId}, ${chunk.content}, ${embeddingVector}::vector, ${chunk.index}, ${chunk.pageNumber}, ${chunk.sectionTitle}, ${chunk.tokenCount}, '{}'::jsonb)
+        `;
+      }
 
-    // Update document total chunk count
-    await tx.document.update({
-      where: { id: documentId },
-      data: { totalChunks: chunks.length },
-    });
-  });
+      // Update document total chunk count
+      await tx.document.update({
+        where: { id: documentId },
+        data: { totalChunks: chunks.length },
+      });
+    },
+    { maxWait: 10000, timeout: 60000 }
+  );
 
   return chunks.length;
 }

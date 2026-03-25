@@ -1,19 +1,30 @@
-import { PDFParse } from "pdf-parse";
+import * as pdfjs from "pdfjs-dist/legacy/build/pdf.mjs";
 
 import type { ParsedDocument } from "@/src/types/rag";
+
+// Disable worker — we run server-side only
+pdfjs.GlobalWorkerOptions.workerSrc = "";
 
 const EXCESSIVE_WHITESPACE_REGEX = /[ \t]{2,}/g;
 const EXCESSIVE_NEWLINES_REGEX = /\n{3,}/g;
 
 export async function parsePdf(buffer: Buffer): Promise<ParsedDocument> {
-  const parser = new PDFParse({ data: new Uint8Array(buffer) });
+  const data = new Uint8Array(buffer);
+  const doc = await pdfjs.getDocument({ data, useWorkerFetch: false, isEvalSupported: false, useSystemFonts: true }).promise;
 
-  const [textResult, infoResult] = await Promise.all([
-    parser.getText(),
-    parser.getInfo(),
-  ]);
+  // Extract text from all pages
+  const pageTexts: string[] = [];
+  for (let i = 1; i <= doc.numPages; i++) {
+    const page = await doc.getPage(i);
+    const textContent = await page.getTextContent();
+    const pageText = textContent.items
+      .filter((item): item is { str: string } => "str" in item)
+      .map((item) => item.str)
+      .join(" ");
+    pageTexts.push(pageText);
+  }
 
-  let content = textResult.text || "";
+  let content = pageTexts.join("\n\n");
   content = content
     .replace(EXCESSIVE_WHITESPACE_REGEX, " ")
     .replace(EXCESSIVE_NEWLINES_REGEX, "\n\n")
@@ -23,19 +34,18 @@ export async function parsePdf(buffer: Buffer): Promise<ParsedDocument> {
     console.warn("[Parsers] PDF produced empty text");
   }
 
-  const title = infoResult.info?.Title
-    ? String(infoResult.info.Title)
-    : undefined;
+  // Extract metadata
+  const metadata = await doc.getMetadata().catch(() => null);
+  const info = metadata?.info as Record<string, unknown> | undefined;
+  const title = info?.Title ? String(info.Title) : undefined;
 
-  const pageCount = infoResult.total || textResult.total;
-
-  await parser.destroy();
+  await doc.destroy();
 
   return {
     content,
     metadata: {
       title,
-      pageCount,
+      pageCount: doc.numPages,
     },
   };
 }

@@ -8,6 +8,7 @@ generator client {
 datasource db {
   provider   = "postgresql"
   url        = env("DATABASE_URL")
+  directUrl  = env("DIRECT_URL")
   extensions = [pgvector(map: "vector")]
 }
 
@@ -46,7 +47,7 @@ model Chunk {
   id           String                      @id @default(cuid())
   documentId   String
   content      String
-  embedding    Unsupported("vector(1024)")?
+  embedding    Unsupported("vector(512)")?
   chunkIndex   Int
   pageNumber   Int?
   sectionTitle String?

@@ -16,10 +16,10 @@ export const ragConfig = {
   },
   embedding: {
     model: "voyage-3-lite",
-    dimensions: 1024,
+    dimensions: 512,
   },
   generation: {
     model: "gemini-2.5-flash",
-    maxTokens: 2048,
+    maxTokens: 5048,
   },
 } as const;
