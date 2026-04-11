@@ -1,18 +1,27 @@
+import { createRequire } from "node:module";
+
 import type { ParsedDocument } from "@/src/types/rag";
 
 const EXCESSIVE_WHITESPACE_REGEX = /[ \t]{2,}/g;
 const EXCESSIVE_NEWLINES_REGEX = /\n{3,}/g;
 
 export async function parsePdf(buffer: Buffer): Promise<ParsedDocument> {
-  // pdfjs-dist 5.x references DOMMatrix at module load time, which doesn't exist
-  // in older Node.js runtimes (e.g. Vercel serverless). Polyfill before importing.
+  // pdfjs-dist 5.x references DOMMatrix at module load time — not available in Node.js.
   if (typeof globalThis.DOMMatrix === "undefined") {
     // @ts-expect-error — minimal no-op polyfill; we don't use matrix transforms
     globalThis.DOMMatrix = class DOMMatrix {};
   }
 
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
-  pdfjs.GlobalWorkerOptions.workerSrc = "";
+
+  // pdfjs-dist 5.x throws if workerSrc is falsy even in Node.js.
+  // Resolve the absolute path so worker_threads can load it at runtime.
+  if (!pdfjs.GlobalWorkerOptions.workerSrc) {
+    const _require = createRequire(import.meta.url);
+    const workerPath = _require.resolve("pdfjs-dist/legacy/build/pdf.worker.mjs");
+    // Convert OS path to file URL (handles Windows backslashes)
+    pdfjs.GlobalWorkerOptions.workerSrc = `file://${workerPath.replace(/\\/g, "/")}`;
+  }
 
   const data = new Uint8Array(buffer);
   const doc = await pdfjs.getDocument({ data, useWorkerFetch: false, isEvalSupported: false, useSystemFonts: true }).promise;
