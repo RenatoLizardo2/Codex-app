@@ -1,5 +1,3 @@
-import { createRequire } from "node:module";
-
 import type { ParsedDocument } from "@/src/types/rag";
 
 const EXCESSIVE_WHITESPACE_REGEX = /[ \t]{2,}/g;
@@ -14,13 +12,12 @@ export async function parsePdf(buffer: Buffer): Promise<ParsedDocument> {
 
   const pdfjs = await import("pdfjs-dist/legacy/build/pdf.mjs");
 
-  // pdfjs-dist 5.x throws if workerSrc is falsy even in Node.js.
-  // Resolve the absolute path so worker_threads can load it at runtime.
+  // pdfjs-dist 5.x requires a non-empty workerSrc even in Node.js (fake worker mode).
+  // import.meta.resolve returns a file:// URL at runtime — works locally and on Vercel.
   if (!pdfjs.GlobalWorkerOptions.workerSrc) {
-    const _require = createRequire(import.meta.url);
-    const workerPath = _require.resolve("pdfjs-dist/legacy/build/pdf.worker.mjs");
-    // Convert OS path to file URL (handles Windows backslashes)
-    pdfjs.GlobalWorkerOptions.workerSrc = `file://${workerPath.replace(/\\/g, "/")}`;
+    pdfjs.GlobalWorkerOptions.workerSrc = import.meta.resolve(
+      "pdfjs-dist/legacy/build/pdf.worker.mjs"
+    );
   }
 
   const data = new Uint8Array(buffer);
